@@ -17,7 +17,8 @@ public class DBHelper {
 	            + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
 	            + "name TEXT NOT NULL,"
 	            + "surname TEXT NOT NULL,"
-	            + "depermant TEXT NOT NULL,"
+	            + "student_number TEXT NOT NULL UNIQUE,"
+	            + "department TEXT NOT NULL,"
 	            + "email TEXT"
 	            + ");";
 	
@@ -46,5 +47,12 @@ public class DBHelper {
 	    catch(Exception err) {
 	    	err.printStackTrace();
 	    }
+	    
+	    
  }
+	public static boolean checkLogin(String email, String password) {
+		return false;
+	}
+	
+	
 }

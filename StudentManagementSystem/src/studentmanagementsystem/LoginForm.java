@@ -6,13 +6,16 @@ import java.awt.event.ActionListener;
 
 public class LoginForm extends JFrame implements ActionListener {
 	
-	JTextField emailField,passwordField;
+	JTextField emailField;
+	JPasswordField passwordField;
 	JLabel lblEmail,lblPassword;
 	JButton btnLogin;
+	JRadioButton stuRadio,tecRadio;
 	
 	public LoginForm() {
 		setTitle("Login");
 		setSize(300,200);
+		setResizable(false);
 		getContentPane().setBackground(Color.BLUE);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc= new GridBagConstraints(); //her elemanın nereye gideceğini söyleyen ayar nesnesi
@@ -28,10 +31,21 @@ public class LoginForm extends JFrame implements ActionListener {
 		add(new JLabel(),gbc);
 		
 		lblEmail=new JLabel("Email: ");
-		emailField=new JTextField(12);
+		emailField=new JTextField(15);
 		
 		lblPassword=new JLabel("Password: ");
-		passwordField=new JTextField(12);
+		passwordField=new JPasswordField (15);
+		
+		JRadioButton tecRadio=new JRadioButton("Teacher");
+		tecRadio.setBackground(Color.blue);
+
+		JRadioButton stuRadio=new JRadioButton("Student");
+		stuRadio.setBackground(Color.blue);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(stuRadio);
+		group.add(tecRadio);
+
 		
 		
 		btnLogin=new JButton("Login");
@@ -58,10 +72,21 @@ public class LoginForm extends JFrame implements ActionListener {
 		gbc.gridy=2;
 		gbc.weightx=0;
 		add(passwordField,gbc);
+		
+		gbc.gridx=1;
+		gbc.gridy=3;
+		gbc.insets=new Insets(5,0,5,5);
+		gbc.anchor=gbc.anchor=GridBagConstraints.WEST;
+		add(tecRadio,gbc);
+		
+		gbc.gridx=1;
+		gbc.gridy=3;
+		gbc.anchor = GridBagConstraints.EAST;
+		add(stuRadio,gbc);
 				
 		
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.weightx = 0;
 		gbc.weighty = 0.5;
 		gbc.anchor = GridBagConstraints.EAST;
@@ -78,7 +103,12 @@ public class LoginForm extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource()==btnLogin) {
+			String email=emailField.getText();
+			String password=new String(emailField.getText());
+			
+			boolean result=DBHelper.checkLogin(email, password);
+		}
 	}
 }
 
