@@ -10,16 +10,27 @@ public class DBHelper {
 	
 		String users="CREATE TABLE IF NOT EXISTS users("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+"email TEXT NOT NULL,"
-				+"password TEXT NOT NULL"
+				+"email TEXT NOT NULL UNIQUE,"
+				+"password TEXT NOT NULL,"
+				+"role TEXT NOT NULL"
 				+");";
 		String students = "CREATE TABLE IF NOT EXISTS students("
 	            + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	            + "user_id INTEGER,"
 	            + "name TEXT NOT NULL,"
 	            + "surname TEXT NOT NULL,"
 	            + "student_number TEXT NOT NULL UNIQUE,"
 	            + "department TEXT NOT NULL,"
-	            + "email TEXT"
+	            + "email TEXT,"
+	            + "FOREIGN KEY(user_id) REFERENCES users(id)"
+	            + ");";
+		String teachers = "CREATE TABLE IF NOT EXISTS teachers("
+	            + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	            + "user_id INTEGER,"
+	            + "name TEXT NOT NULL,"
+	            + "surname TEXT NOT NULL,"
+	            + "email TEXT,"
+	            + "FOREIGN KEY(user_id) REFERENCES users(id)"
 	            + ");";
 	
 	    String courses = "CREATE TABLE IF NOT EXISTS courses("
@@ -41,6 +52,7 @@ public class DBHelper {
 	    try(Connection conn=DBConnection.connect();Statement stmt=conn.createStatement()){
 	    	stmt.execute(users);
 	    	stmt.execute(students);
+	    	stmt.execute(teachers);
 	    	stmt.execute(courses);
 	    	stmt.execute(grades);
 	    }
@@ -50,7 +62,7 @@ public class DBHelper {
 	    
 	    
  }
-	public static boolean checkLogin(String email, String password) {
+	public static boolean checkLogin(String email, String password,String role) {
 		return false;
 	}
 	

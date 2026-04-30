@@ -36,10 +36,10 @@ public class LoginForm extends JFrame implements ActionListener {
 		lblPassword=new JLabel("Password: ");
 		passwordField=new JPasswordField (15);
 		
-		JRadioButton tecRadio=new JRadioButton("Teacher");
+		tecRadio=new JRadioButton("Teacher");
 		tecRadio.setBackground(Color.blue);
 
-		JRadioButton stuRadio=new JRadioButton("Student");
+	    stuRadio=new JRadioButton("Student");
 		stuRadio.setBackground(Color.blue);
 		
 		ButtonGroup group = new ButtonGroup();
@@ -104,10 +104,38 @@ public class LoginForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnLogin) {
-			String email=emailField.getText();
-			String password=new String(emailField.getText());
 			
-			boolean result=DBHelper.checkLogin(email, password);
+			String email=emailField.getText();
+			String password=new String(passwordField.getPassword());
+			String role="";
+			
+			if(stuRadio.isSelected()) {
+				role="student";
+			}
+			else if(tecRadio.isSelected()) {
+				role="teacher";
+			}
+			else {
+			    JOptionPane.showMessageDialog(this, "Please select a role");
+			    return;
+			}
+			boolean result=DBHelper.checkLogin(email, password,role);
+			
+			if(result&&role.equals("student")) {
+	            JOptionPane.showMessageDialog(this, "Login successful");
+	            StudentForm s=new StudentForm();
+	            dispose();
+	            
+	        } else if(result&&role.equals("teacher")){
+	            JOptionPane.showMessageDialog(this, "Login successful");
+	            TeacherForm t=new TeacherForm();
+	            dispose();
+	            
+	        }
+	        else {
+	        	JOptionPane.showMessageDialog(this, "Login failed");
+			
+			}
 		}
 	}
 }
