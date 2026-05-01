@@ -1,9 +1,11 @@
 package studentmanagementsystem;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TeacherForm extends JFrame{
-	JButton btnAddStudent,btnStudentsList,btnEditStudent,btnDeleteStudent;
+public class TeacherForm extends JFrame implements ActionListener{
+	JButton btnAddStudent,btnStudentsList;
 	JPanel panel;
 	
 	
@@ -21,15 +23,14 @@ public class TeacherForm extends JFrame{
 		
 		
 		btnAddStudent=new JButton("Add Student");
+		btnAddStudent.addActionListener(this);
 		btnStudentsList=new JButton("Students List");
-		btnEditStudent=new JButton("Edit Student");
-		btnDeleteStudent=new JButton("Delete Student");
+		
 		Dimension size = new Dimension(120, 30);
 
 		btnAddStudent.setPreferredSize(size);
 		btnStudentsList.setPreferredSize(size);
-		btnEditStudent.setPreferredSize(size);
-		btnDeleteStudent.setPreferredSize(size);
+		
 		
 		gbc.gridx=0;
 		gbc.gridy=0;
@@ -41,19 +42,20 @@ public class TeacherForm extends JFrame{
 		gbc.gridwidth=2;
 		panel.add(btnStudentsList,gbc);
 		
-		gbc.gridx=0;
-		gbc.gridy=2;
-		gbc.gridwidth=2;
-		panel.add(btnEditStudent,gbc);
 		
-		
-		gbc.gridx=0;
-		gbc.gridy=3;
-		gbc.gridwidth=2;
-		panel.add(btnDeleteStudent,gbc);
 		
 		add(panel);
 		
+		
+		
+		
 		setVisible(true);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnAddStudent) {
+			
+		}
 	}
 }

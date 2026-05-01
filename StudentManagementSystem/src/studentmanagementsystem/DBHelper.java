@@ -24,6 +24,7 @@ public class DBHelper {
 	            + "student_number TEXT NOT NULL UNIQUE,"
 	            + "department TEXT NOT NULL,"
 	            + "email TEXT,"
+	            + "photo_path TEXT,"
 	            + "FOREIGN KEY(user_id) REFERENCES users(id)"
 	            + ");";
 		String teachers = "CREATE TABLE IF NOT EXISTS teachers("
