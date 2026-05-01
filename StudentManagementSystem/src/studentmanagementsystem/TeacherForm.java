@@ -10,6 +10,7 @@ public class TeacherForm extends JFrame{
 	public TeacherForm() {
 		setSize(300,300);
 		setTitle("Teacher Panel");
+		setResizable(false);
 		panel=new JPanel(new GridBagLayout());
 		panel.setBackground(Color.BLUE);
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK,3),"Teacher Panel"));

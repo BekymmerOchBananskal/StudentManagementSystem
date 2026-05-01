@@ -1,6 +1,8 @@
 package studentmanagementsystem;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 
 public class DBHelper {
@@ -49,12 +51,20 @@ public class DBHelper {
 	            + "FOREIGN KEY(course_id) REFERENCES courses(id)"
 	            + ");";
 	    
-	    try(Connection conn=DBConnection.connect();Statement stmt=conn.createStatement()){
+	    try(Connection conn=DBConnection.connect();){
+	    	
+	    	if (conn == null) {
+	    	      System.out.println("Database connection failed!");
+	    	      return;
+	    	 }
+	    	Statement stmt=conn.createStatement();
 	    	stmt.execute(users);
 	    	stmt.execute(students);
 	    	stmt.execute(teachers);
 	    	stmt.execute(courses);
 	    	stmt.execute(grades);
+	    	
+	    	System.out.println("Tables created successfully.");
 	    }
 	    catch(Exception err) {
 	    	err.printStackTrace();
@@ -63,7 +73,21 @@ public class DBHelper {
 	    
  }
 	public static boolean checkLogin(String email, String password,String role) {
-		return false;
+		String sql="SELECT * FROM users WHERE email=? AND password=? AND role=?";
+		
+		try(Connection conn=DBConnection.connect();PreparedStatement pstmt=conn.prepareStatement(sql)){
+			pstmt.setString(1,email);
+			pstmt.setString(2, password);
+			pstmt.setString(3, role);
+			
+			ResultSet rs=pstmt.executeQuery();
+			
+			return rs.next();
+		}
+		catch(Exception err) {
+			err.printStackTrace();
+			return false;
+		}
 	}
 	
 	

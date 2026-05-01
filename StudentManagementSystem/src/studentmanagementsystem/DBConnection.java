@@ -15,8 +15,10 @@ public class DBConnection {
 			
 		}
 		catch(SQLException err) {
-			err.getMessage();
-			return null;
+			
+			    err.printStackTrace();
+			    return null;
+			
 		}
 		return conn;
 	}
