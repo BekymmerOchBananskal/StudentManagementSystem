@@ -9,7 +9,9 @@ public class TeacherForm extends JFrame implements ActionListener{
 	JPanel panel;
 	
 	
+	
 	public TeacherForm() {
+		
 		setSize(300,300);
 		setTitle("Teacher Panel");
 		setResizable(false);
@@ -55,7 +57,9 @@ public class TeacherForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnAddStudent) {
-			
+			new AddStudentForm();
+			dispose();
 		}
+		
 	}
 }
