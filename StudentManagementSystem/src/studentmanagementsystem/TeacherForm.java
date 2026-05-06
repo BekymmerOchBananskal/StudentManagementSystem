@@ -27,6 +27,7 @@ public class TeacherForm extends JFrame implements ActionListener{
 		btnAddStudent=new JButton("Add Student");
 		btnAddStudent.addActionListener(this);
 		btnStudentsList=new JButton("Students List");
+		btnStudentsList.addActionListener(this);
 		
 		Dimension size = new Dimension(120, 30);
 
@@ -58,6 +59,10 @@ public class TeacherForm extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnAddStudent) {
 			new AddStudentForm();
+			dispose();
+		}
+		if(e.getSource()==btnStudentsList) {
+			new StudentListForm();
 			dispose();
 		}
 		
