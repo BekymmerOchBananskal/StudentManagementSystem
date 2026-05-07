@@ -2,10 +2,13 @@ package studentmanagementsystem;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class StudentDBO {
 	
@@ -70,6 +73,58 @@ public class StudentDBO {
             JOptionPane.showMessageDialog(null, "Student could not be added!");
         }
     }
+	
+	public static void getAllStudents(DefaultTableModel model) {
+		try (Connection conn = DBConnection.connect()) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Database connection failed!");
+                return;
+            }
+            
+            String sql="SELECT * FROM students";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+            	Object[] row = {
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("student_number"),
+                        rs.getString("department"),
+                        rs.getString("email"),
+                        rs.getString("photo_path")
+                    };
+            	 model.addRow(row);
+            }
+		}
+		catch(SQLException  err) {
+			JOptionPane.showMessageDialog(null, "Veriler alınamadı: " + err.getMessage());
+		}
+	}
+	public static void fillCoursesCombo(JComboBox<String> comboCourses) {
+		try (Connection conn = DBConnection.connect()) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Database connection failed!");
+                return;
+            }
+            
+            String sql="SELECT * FROM courses";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+            	comboCourses.addItem(rs.getInt("id") + " - " +
+                        rs.getString("course_name"));
+            }
 		
+		}
+		catch(SQLException err) {
+			JOptionPane.showMessageDialog(null, "Veriler alınamadı: " + err.getMessage());
+		}
+		
+  }
 }
 
